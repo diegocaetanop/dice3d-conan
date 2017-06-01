@@ -139,7 +139,7 @@
 
     this.standart_d20_dice_face_labels = [' ', '0', '1', '2', '3', '4', '5', '6', '7', '8',
             '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
-    var known_colors = { 'red': '#aa0007', 'orange': '#f57501', 'yellow': '#fce021'};
+    var known_colors = { 'red': '#AA0007', 'orange': '#A54100', 'yellow': '#FFF000'};
 
     function calc_texture_size(approx) {
         return Math.pow(2, Math.floor(Math.log(approx) / Math.log(2)));
@@ -158,10 +158,46 @@
             context.textAlign = "center";
             context.textBaseline = "middle";
             context.fillStyle = color;
-            context.fillText(text, canvas.width / 2, canvas.height / 2);
-            if (text == '6' || text == '9') {
-                context.fillText('  .', canvas.width / 2, canvas.height / 2);
+
+            switch (dice_color) {
+                case '#AA0007' : {
+                    if ( text == '1') {
+                        context.fillText('  .', canvas.width / 2, canvas.height / 2);
+                    } else if ( text == '2' || text == '5') {
+                        context.fillText(' I I ', canvas.width / 2, canvas.height / 2);
+                    } else if ( text == '3' || text == '4') {
+                        context.fillText(' I ', canvas.width / 2, canvas.height / 2);
+                    } else {
+                        context.fillText('I I I', canvas.width / 2, canvas.height / 2);
+                    }
+                    break;
+                }
+                case '#A54100': {
+                    if ( text == '3' || text == '4') {
+                        context.fillText('  .', canvas.width / 2, canvas.height / 2);
+                    } else if ( text == '2' || text == '5') {
+                        context.fillText(' I ', canvas.width / 2, canvas.height / 2);
+                    } else {
+                        context.fillText(' I I ', canvas.width / 2, canvas.height / 2);
+                    }
+                    break;
+                }
+                case '#FFF000': {
+                    if ( text == '1' || text == '3' || text == '4' ) {
+                        context.fillText('  .', canvas.width / 2, canvas.height / 2);
+                    } else if ( text == '2' || text == '5') {
+                        context.fillText(' I ', canvas.width / 2, canvas.height / 2);
+                    } else {
+                        context.fillText(' I I ', canvas.width / 2, canvas.height / 2);
+                    }
+                    break;
+                }
+                default: {
+                    context.fillText(text, canvas.width / 2, canvas.height / 2);
+                    break;
+                }
             }
+
             var texture = new THREE.Texture(canvas);
             texture.needsUpdate = true;
             return texture;
@@ -188,7 +224,7 @@
         shading: THREE.FlatShading,
     };
     this.label_color = '#000000';
-    this.ambient_light_color = 0xf0f5fb;
+    this.ambient_light_color = 0xffffff;
     this.spot_light_color = 0xefdfd5;
     this.selector_back_colors = { color: 0x404040, shininess: 0, emissive: 0x858787 };
     this.desk_color = 0xdfdfdf;

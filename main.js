@@ -56,26 +56,7 @@ function dice_initialize(container) {
     }
 
     function after_roll(notation, result) {
-        var res = result.join(' ');
-        var refTable = { 'd6red': [0, 2, 1, 1, 2, 3], 'd6orange': [2, 1, 0, 0, 1, 2], 'd6yellow': [0, 1, 0, 0, 1, 2] };
-
-        if (notation.constant) res += ' +' + notation.constant;
-
-        if ( result.length <= 1 ) {
-            res += ' => ' + refTable[notation.set[0]][result[0]-1] + ' succès*';
-        }
-
-        if (result.length > 1) {
-            res += ' => ';
-            var successValue = 0;
-            for (var i=0; i<result.length; i++) {
-                var curRefTable = refTable[notation.set[i]];
-                var refValue = curRefTable[result[i]-1];
-                successValue += refValue;
-            }
-            res += successValue + ' succès*';
-        }
-        label.innerHTML = res;
+        label.innerHTML = '';
         info_div.style.display = 'inline-block';
     }
 
